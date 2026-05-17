@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOOLROOM Ai — Manufacturing Procurement Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">⚙</div>
+    TOOLROOM <span>Ai</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#" class="nav-cta" onclick="document.getElementById('fileInput').click();return false;">Upload Drawing</a>
+</nav>
+
+<!-- ── HERO ── -->
+<div style="position:relative;z-index:1;">
+<div class="hero-wrap">
+
+  <!-- LEFT -->
+  <div>
+    <div class="eyebrow">
+      <div class="e-line"></div>
+      <div class="e-text">AI-Powered Manufacturing Procurement</div>
+    </div>
+    <h1 class="hero-title">
+      Upload Drawing.<br>
+      Find the Right<br>
+      <em>Toolroom.</em>
+    </h1>
+    <p class="hero-sub">
+      Drop an engineering drawing — our AI reads it, generates a process route card, and matches it to the right toolroom in seconds. No calls. No guessing.
+    </p>
+    <div class="btn-row">
+      <a href="#" class="btn-fill" onclick="document.getElementById('fileInput').click();return false;">Upload a Drawing</a>
+      <a href="#how" class="btn-ghost">How It Works</a>
+    </div>
+  </div>
+
+  <!-- RIGHT — DEMO CARD -->
+  <div>
+    <div class="demo-card">
+      <div class="card-eyebrow">Live Demo — Upload Any Drawing</div>
+
+      <!-- Upload state -->
+      <div id="uploadState">
+        <div class="card-quote">"Drop your PDF drawing and watch the AI extract, route, and match."</div>
+        <div class="upload-area" id="uploadZone">
+          <input type="file" id="fileInput" accept=".pdf">
+          <div class="up-icon">↑</div>
+          <div class="up-text">Drag & drop a PDF drawing here<br>or click to browse</div>
+          <button class="up-btn" onclick="document.getElementById('fileInput').click()">Choose PDF</button>
+        </div>
+        <div class="chip-row">
+          <span class="chip">CNC Turning</span>
+          <span class="chip">VMC Milling</span>
+          <span class="chip">Heat Treatment</span>
+          <span class="chip">Grinding</span>
+          <span class="chip">EDM</span>
+          <span class="chip">Keyway</span>
+        </div>
+      </div>
+
+      <!-- Processing state -->
+      <div id="processingState" class="hidden">
+        <div class="prog-bar">
+          <div class="ps" id="ps1">Reading</div>
+          <div class="ps" id="ps2">Extracting</div>
+          <div class="ps" id="ps3">Route</div>
+          <div class="ps" id="ps4">Match</div>
+          <div class="ps" id="ps5">Done</div>
+        </div>
+        <div class="spin-wrap"><span class="spin"></span><span id="spinTxt">Initialising…</span></div>
+      </div>
+
+      <!-- Error -->
+      <div id="errBox" class="err hidden"></div>
+
+      <!-- Results state -->
+      <div id="resultsState" class="hidden">
+        <div class="res-block">
+          <div class="res-lbl">Part Specifications</div>
+          <div id="specOut"></div>
+        </div>
+        <div class="res-block" style="margin-top:14px;">
+          <div class="res-lbl">Process Route Card</div>
+          <div id="routeOut"></div>
+        </div>
+        <div class="res-block" style="margin-top:14px;">
+          <div class="res-lbl">Matched Suppliers — NCR Region</div>
+          <div id="supOut"></div>
+        </div>
+        <button class="reset-btn" onclick="resetDemo()">← Analyse another drawing</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+<hr class="div">
+
+<!-- ── HOW IT WORKS ── -->
+<div style="position:relative;z-index:1;border-top:1px solid var(--border);">
+<div class="sec" id="how">
+  <div class="eyebrow"><div class="e-line"></div><div class="e-text">How It Works</div></div>
+  <h2 class="sec-title">From drawing to matched supplier<br><em>in under a minute.</em></h2>
+  <div class="steps-grid">
+    <div class="step-cell">
+      <div class="step-n">01 / Upload</div>
+      <div class="step-title">Upload Your Drawing</div>
+      <div class="step-desc">Drop a PDF engineering drawing. The system reads it instantly — no manual data entry, no forms to fill.</div>
+    </div>
+    <div class="step-cell">
+      <div class="step-n">02 / Extract</div>
+      <div class="step-title">AI Reads the Drawing</div>
+      <div class="step-desc">AI extracts material, diameter, length, tolerances, surface finish, and all required manufacturing operations from the drawing.</div>
+    </div>
+    <div class="step-cell">
+      <div class="step-n">03 / Route</div>
+      <div class="step-title">Process Route Card</div>
+      <div class="step-desc">An ordered manufacturing sequence is generated — turning, boring, milling, heat treatment, grinding — with inhouse or outsource flags.</div>
+    </div>
+    <div class="step-cell">
+      <div class="step-n">04 / Match</div>
+      <div class="step-title">Supplier Matching</div>
+      <div class="step-desc">Toolrooms are scored against the part's requirements — process capability, material, dimensions, machine capacity — and ranked.</div>
+    </div>
+    <div class="step-cell">
+      <div class="step-n">05 / RFQ</div>
+      <div class="step-title">Auto RFQ Dispatch</div>
+      <div class="step-desc">Matched toolrooms receive structured RFQs instantly with all specs attached. Zero phone calls. Zero manual effort.</div>
+    </div>
+    <div class="step-cell">
+      <div class="step-n">06 / Compare</div>
+      <div class="step-title">Compare & Decide</div>
+      <div class="step-desc">All quotes come back to one dashboard. Compare prices against market benchmarks and place the order with confidence.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<hr class="div">
+
+<!-- ── FEATURES ── -->
+<div style="position:relative;z-index:1;background:var(--bg2);border-top:1px solid var(--border);">
+<div class="sec" id="features">
+  <div class="eyebrow"><div class="e-line"></div><div class="e-text">What It Does</div></div>
+  <h2 class="sec-title">Every feature built for<br><em>the machine shop floor.</em></h2>
+  <div class="feat-grid">
+    <div class="feat-cell">
+      <div class="feat-num">01 — AI Extraction</div>
+      <div class="feat-title">Drawing Interpretation</div>
+      <div class="feat-desc">Computer vision reads PDF drawings and extracts all technical specs — material, diameter, length, tolerances, Ra surface finish values, and required operations. No manual input.</div>
+    </div>
+    <div class="feat-cell">
+      <div class="feat-num">02 — Process Planning</div>
+      <div class="feat-title">Route Card Generation</div>
+      <div class="feat-desc">Manufacturing domain rules produce an ordered operation sequence. CNC turning → boring → VMC milling → heat treatment → grinding → inspection. Each step flagged inhouse or outsource.</div>
+    </div>
+    <div class="feat-cell">
+      <div class="feat-num">03 — Smart Matching</div>
+      <div class="feat-title">Capability-Based Supplier Match</div>
+      <div class="feat-desc">Toolrooms are scored across process capability, material match, machine capacity, and equipment vintage. The best-fit suppliers for that specific part rise to the top.</div>
+    </div>
+    <div class="feat-cell">
+      <div class="feat-num">04 — Price Intelligence</div>
+      <div class="feat-title">Quote Benchmarking</div>
+      <div class="feat-desc">Submitted quotes are compared against market pricing data. Know in seconds whether a quoted price is fair, inflated, or a bargain — before you commit to an order.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<hr class="div">
+
+<!-- ── TEAM ── -->
+<div style="position:relative;z-index:1;border-top:1px solid var(--border);">
+<div class="sec" id="team">
+  <div class="eyebrow"><div class="e-line"></div><div class="e-text">The Team</div></div>
+  <h2 class="sec-title">Procurement, manufacturing,<br><em>and AI — in one team.</em></h2>
+  <div class="team-grid">
+    <div class="team-cell">
+      <div class="team-init">JS</div>
+      <div class="team-name">Jagdeep Singh</div>
+      <div class="team-role">Co-founder & CEO</div>
+      <div class="team-bio">20+ years in procurement at Jindal Group. Deep expertise in RFQ management, supplier sourcing, and manufacturing supply chains.</div>
+    </div>
+    <div class="team-cell">
+      <div class="team-init">RK</div>
+      <div class="team-name">Rizwan Khan</div>
+      <div class="team-role">Co-founder & COO</div>
+      <div class="team-bio">6+ years running a toolroom with ₹3.5 Cr turnover. Hands-on knowledge of CNC, VMC, heat treatment, and precision grinding operations.</div>
+    </div>
+    <div class="team-cell">
+      <div class="team-init">MA</div>
+      <div class="team-name">Mohd Arqam</div>
+      <div class="team-role">Co-founder & CTO</div>
+      <div class="team-bio">5+ years in data engineering and AI development. Pursuing M.Tech in AI & Data Engineering at IIT Patna. Builder of the matching and extraction engine.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── CTA / CONTACT ── -->
+<div class="cta-wrap" id="contact">
+  <div class="eyebrow" style="justify-content:center;">
+    <div class="e-line"></div>
+    <div class="e-text">Get Started</div>
+    <div class="e-line"></div>
+  </div>
+  <h2 class="cta-title">
+    Upload a drawing.<br>
+    <em>See it work today.</em>
+  </h2>
+  <p class="cta-sub">Join the pilot — bring your engineering drawings and we'll match them to the right toolrooms in the NCR region.</p>
+  <div class="btn-row" style="justify-content:center;">
+    <a href="#" class="btn-fill" onclick="document.getElementById('fileInput').click();return false;">Upload a Drawing Now</a>
+    <a href="mailto:Toolroomcompany@gmail.com" class="btn-ghost">Contact Us</a>
+  </div>
+  <div class="contact-strip">
+    <div class="c-item"><div class="c-lbl">Email</div><div class="c-val">Toolroomcompany@gmail.com</div></div>
+    <div class="c-item"><div class="c-lbl">Phone</div><div class="c-val">99108 97692</div></div>
+    <div class="c-item"><div class="c-lbl">Location</div><div class="c-val">Ghaziabad, Uttar Pradesh</div></div>
+    <div class="c-item"><div class="c-lbl">Website</div><div class="c-val">toolroomai.com</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-logo">TOOLROOM <span>Ai</span> — Powered by TOOLROOM LLP</div>
+  <div class="foot-copy">© 2025 TOOLROOM LLP · Ghaziabad, UP 201001</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
